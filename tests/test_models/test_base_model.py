@@ -1,4 +1,11 @@
 #!/usr/bin/python3
+import sys
+import os
+
+# Agrega el directorio raíz del proyecto al sys.path
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(project_root)
+
 from models.base_model import BaseModel
 
 my_model = BaseModel()
