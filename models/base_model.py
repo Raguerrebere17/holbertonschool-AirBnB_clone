@@ -1,21 +1,28 @@
 #!/usr/bin/python3
-"""class BaseModel"""
+"""
+class BaseModel
+"""
 import uuid
 from datetime import datetime
 
 
 class BaseModel:
-    """class BaseModel
+    """
+    class BaseModel attributes
+    id: uuid
+    created_at: date
+    updated_at: date
     """
     def __init__(self):
-        """__init__
+        """
+        creates new instance
         """
         self.id = str(uuid.uuid4())
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
 
     def __str__(self):
-        """__str__
+        """string method
 
         Returns:
             string: instance.
@@ -23,12 +30,16 @@ class BaseModel:
         return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
 
     def save(self):
-        """save data
+        """
+        save data
         """
         self.updated_at = datetime.now()
 
     def to_dict(self):
-        """return instance as dictionary
+        """
+        to_dict function
+
+        return instance as dictionary
         """
         obj_dict = self.__dict__.copy()
         obj_dict['__class__'] = self.__class__.__name__
