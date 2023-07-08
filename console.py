@@ -4,7 +4,7 @@ A module cmd that contains the entry point of the command interpreter
 """
 import cmd
 import models
-# from models.engine.file_storage import FileStorage
+from models.user import User
 
 
 class HBNBCommand(cmd.Cmd):
@@ -21,7 +21,7 @@ class HBNBCommand(cmd.Cmd):
             return False
         else:
             class_name = args[0]
-            if class_name not in models.dict_class:
+            if class_name not in models.dict_class and class_name != 'User':
                 print('** class doesn\'t exist **')
                 return False
         return True
@@ -54,7 +54,11 @@ class HBNBCommand(cmd.Cmd):
         """
         args = arg.split()
         if self.arg_checker(args):
-            instance = models.dict_class[args[0]]()
+            class_name = args[0]
+            if class_name == 'User':
+                instance = User()
+            else:
+                instance = models.dict_class[class_name]()
             instance.save()
             print(instance.id)
 
@@ -70,7 +74,7 @@ class HBNBCommand(cmd.Cmd):
         args = arg.split()
         class_name = args[0]
 
-        if class_name not in models.dict_class:
+        if class_name not in models.dict_class and class_name != 'User':
             print("** class doesn't exist **")
             return
 
@@ -98,12 +102,12 @@ class HBNBCommand(cmd.Cmd):
             if len(args) < 2:
                 print('** instance id missing **')
             else:
-                # Deletes the instance of the specified class
-                # and id and saves the changes to the JSON file
-                key = f"{args[0]}.{args[1]}"
-                temp = models.storage.all()  # temp is self.__object
+                class_name = args[0]
+                instance_id = args[1]
+                key = f"{class_name}.{instance_id}"
+                temp = models.storage.all()
                 if key in temp:
-                    del (temp[key])
+                    del temp[key]
                     models.storage.save()
                 else:
                     print("** no instance found **")
@@ -120,9 +124,10 @@ class HBNBCommand(cmd.Cmd):
             if len(args) < 2:
                 print('** instance id missing **')
             else:
+                class_name = args[0]
                 instance_id = args[1]
-                key = "{}.{}".format(args[0], args[1])
-                temp = models.storage.all()  # temp is self.__object
+                key = f"{class_name}.{instance_id}"
+                temp = models.storage.all()
                 if key not in temp:
                     print('** no instance found **')
                 elif len(args) < 3:
@@ -147,14 +152,15 @@ class HBNBCommand(cmd.Cmd):
             instances = models.storage.all()
         else:
             class_name = args[0]
-            if class_name not in models.dict_class:
+            if class_name not in models.dict_class and class_name != 'User':
                 print('** class doesn\'t exist **')
                 return
             # Prints the string representation
             # of all instances of the specified class
             instances = models.storage.all()
             for instance in instances.values():
-                print(instance)
+                if instance.__class__.__name__ == class_name:
+                    print(instance)
 
 
 if __name__ == '__main__':

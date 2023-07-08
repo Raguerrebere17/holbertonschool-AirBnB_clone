@@ -5,6 +5,7 @@ import json
 import models
 import importlib
 from models.base_model import BaseModel
+from models.user import User
 """
     class FileStorage
 """
@@ -44,7 +45,6 @@ class FileStorage:
         obj_dict = {}
         for key, value in self.__objects.items():
             obj_dict[key] = value.to_dict()
-
         with open(self.__file_path, 'w') as file:
             json.dump(obj_dict, file)
 
@@ -58,4 +58,7 @@ class FileStorage:
             for key, value in data.items():
                 class_obj = value.get('__class__')
                 if class_obj in models.dict_class:
-                    self.__objects[key] = models.dict_class[class_obj](**value)
+                    if class_obj == "User":
+                        self.__objects[key] = User(**value)
+                    else:
+                        self.__objects[key] = models.dict_class[class_obj](**value)
