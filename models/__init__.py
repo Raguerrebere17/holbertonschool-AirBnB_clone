@@ -5,11 +5,11 @@ from models.user import User
 
 dict_class = {
     'BaseModel': BaseModel,
-    'User': User,
-    'Place': Place,
-    'City': City,
-    'Amenity': Amenity,
-    'Review': Review
+    'User': user,
+    'Place': place,
+    'City': city,
+    'Amenity': amenity,
+    'Review': review
 }
 
 storage = FileStorage()

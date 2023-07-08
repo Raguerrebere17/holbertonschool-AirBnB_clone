@@ -50,19 +50,16 @@ class BaseModel:
         obj_dict['updated_at'] = self.updated_at.isoformat()
         return obj_dict
 
-    def __init__(self, *args, **kwargs):
+    def reload(self):
         """
-        _summary_
+        A method deserializes the JSON file to __objects
         """
-        if kwargs:
-            for key, value in kwargs.items():
-                if key != '__class__':
-                    if key == 'created_at' or key == 'updated_at':
-                        value = datetime.strptime(
-                            value, "%Y-%m-%dT%H:%M:%S.%f")
-                    setattr(self, key, value)
-        else:
-            self.id = str(uuid.uuid4())
-            self.created_at = datetime.now()
-            self.updated_at = datetime.now()
-            models.storage.new(self)
+    if os.path.isfile(FileStorage.__file_path):
+        with open(self.__file_path, mode="r+", encoding="UTF-8") as f:
+            data = json.load(f)
+        for key, value in data.items():
+            class_obj = value.get('__class__')
+            if class_obj in models.dict_class:
+                model_class = models.dict_class[class_obj]
+                instance = model_class(**value)
+                self.__objects[key] = instance
