@@ -1,11 +1,12 @@
 #!/usr/bin/python3
-from models.base_model import BaseModel
 import sys
 import os
+from models.base_model import BaseModel
 
 # Agrega el directorio raíz del proyecto al sys.path
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(project_root)
+
 
 my_model = BaseModel()
 my_model.name = "My First Model"
