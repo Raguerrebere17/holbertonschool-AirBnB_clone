@@ -6,6 +6,11 @@ import models
 import importlib
 from models.base_model import BaseModel
 from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 """
     class FileStorage
 """
@@ -50,16 +55,29 @@ class FileStorage:
 
     def reload(self):
         """
-        A method deserializes the JSON file to __objects
+        Deserializes the JSON file to __objects
         """
-        if os.path.isfile(FileStorage.__file_path):
-            with open(self.__file_path, mode="r+", encoding="UTF-8") as f:
-                data = json.load(f)
-            for key, value in data.items():
-                class_obj = value.get('__class__')
-                if class_obj in models.dict_class:
-                    if class_obj == "User":
-                        self.__objects[key] = User(**value)
-                    else:
-                        self.__objects[key] = models.dict_class[
-                            class_obj](**value)
+    if os.path.isfile(self.__file_path):
+        with open(self.__file_path, 'r') as file:
+            obj_dict = json.load(file)
+
+        for key, value in obj_dict.items():
+            class_name, obj_id = key.split('.')
+            if class_name == "User":
+                class_ = User
+            elif class_name == "State":
+                class_ = State
+            elif class_name == "City":
+                class_ = City
+            elif class_name == "Amenity":
+                class_ = Amenity
+            elif class_name == "Place":
+                class_ = Place
+            elif class_name == "Review":
+                class_ = Review
+            else:
+                continue
+
+            instance = class_(**value)
+            self.__objects[key] = instance
+

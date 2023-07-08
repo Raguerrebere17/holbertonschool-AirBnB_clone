@@ -5,7 +5,11 @@ A module cmd that contains the entry point of the command interpreter
 import cmd
 import models
 from models.user import User
-
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 class HBNBCommand(cmd.Cmd):
     """
@@ -21,10 +25,17 @@ class HBNBCommand(cmd.Cmd):
             return False
         else:
             class_name = args[0]
-            if class_name not in models.dict_class and class_name != 'User':
-                print('** class doesn\'t exist **')
-                return False
+        if class_name not in models.dict_class and \
+                class_name != 'User' and \
+                class_name != 'State' and \
+                class_name != 'City' and \
+                class_name != 'Amenity' and \
+                class_name != 'Place' and \
+                class_name != 'Review':
+            print('** class doesn\'t exist **')
+            return False
         return True
+
 
     def do_quit(self, arg):
         """
