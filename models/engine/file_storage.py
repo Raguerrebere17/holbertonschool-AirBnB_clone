@@ -63,8 +63,5 @@ class FileStorage:
             for key, value in data.items():
                 class_obj = value.get('__class__')
                 if class_obj in models.dict_class:
-                    if class_obj == "User":
-                        self.__objects[key] = User(**value)
-                    else:
-                        self.__objects[key] = models.dict_class[
-                            class_obj](**value)
+                    cc = models.dict_class[class_obj](**value)
+                    self.__objects[key] = cc

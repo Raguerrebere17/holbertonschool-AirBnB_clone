@@ -4,20 +4,15 @@ A module cmd that contains the entry point of the command interpreter
 """
 import cmd
 import models
-from models.user import User
-from models.state import State
-from models.city import City
-from models.amenity import Amenity
-from models.place import Place
-from models.review import Review
+
 
 class HBNBCommand(cmd.Cmd):
     """
     class initialization
     """
     prompt = "(hbnb) "
-    storage = models.storage
-    storage.reload()
+    # storage = models.storage
+    # storage.reload()
 
     def arg_checker(self, args):
         if len(args) == 0:
@@ -25,17 +20,10 @@ class HBNBCommand(cmd.Cmd):
             return False
         else:
             class_name = args[0]
-        if class_name not in models.dict_class and \
-                class_name != 'User' and \
-                class_name != 'State' and \
-                class_name != 'City' and \
-                class_name != 'Amenity' and \
-                class_name != 'Place' and \
-                class_name != 'Review':
+        if class_name not in models.dict_class:
             print('** class doesn\'t exist **')
             return False
         return True
-
 
     def do_quit(self, arg):
         """
@@ -66,10 +54,7 @@ class HBNBCommand(cmd.Cmd):
         args = arg.split()
         if self.arg_checker(args):
             class_name = args[0]
-            if class_name == 'User':
-                instance = User()
-            else:
-                instance = models.dict_class[class_name]()
+            instance = models.dict_class[class_name]()
             instance.save()
             print(instance.id)
 
