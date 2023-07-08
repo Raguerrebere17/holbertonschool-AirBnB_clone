@@ -61,4 +61,5 @@ class FileStorage:
                     if class_obj == "User":
                         self.__objects[key] = User(**value)
                     else:
-                        self.__objects[key] = models.dict_class[class_obj](**value)
+                        self.__objects[key] = models.dict_class[
+                            class_obj](**value)

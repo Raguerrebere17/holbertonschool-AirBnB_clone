@@ -5,7 +5,7 @@ from models.user import User
 
 dict_class = {
     'BaseModel': BaseModel,
-    'User' : User
+    'User': User
 }
 
 storage = FileStorage()
