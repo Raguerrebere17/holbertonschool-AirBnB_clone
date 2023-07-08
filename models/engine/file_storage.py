@@ -1,5 +1,10 @@
 #!/usr/bin/python3
+import os
+import sys
 import json
+import models
+import importlib
+from models.base_model import BaseModel
 """
     class FileStorage
 """
@@ -44,21 +49,13 @@ class FileStorage:
             json.dump(obj_dict, file)
 
     def reload(self):
-        """_summary_
         """
-        try:
-            with open(self.__file_path, 'r') as file:
-                obj_dict = json.load(file)
-
-            for key, value in obj_dict.items():
-                class_name, obj_id = key.split('.')
-                class_ = globals()[class_name]
-                instance = class_()
-
-                for attr, val in value.items():
-                    setattr(instance, attr, val)
-
-                self.__objects[keys] = instance
-
-        except FileNotFoundError:
-            pass
+        A method deserializes the JSON file to __objects
+        """
+        if os.path.isfile(FileStorage.__file_path):
+            with open(self.__file_path, mode="r+", encoding="UTF-8") as f:
+                data = json.load(f)
+            for key, value in data.items():
+                class_obj = value.get('__class__')
+                if class_obj in models.dict_class:
+                    self.__objects[key] = models.dict_class[class_obj](**value)
