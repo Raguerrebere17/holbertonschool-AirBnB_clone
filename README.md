@@ -1,10 +1,12 @@
 <div align="center">
-
-![Readme_banner](https://github.com/Raguerrebere17/Templates/assets/124218286/e528ebb8-2d97-455c-a767-7736bd12b6b8)
   
-<h1> Readme Template </h1>
+![AIRBnBBanner](https://github.com/Marulaska/holbertonschool-AirBnB_clone/assets/124218286/4c0cb688-95e2-4999-897d-40a19d2f5a66)
+  
+<h1> AirBnB Clone </h1>
 
-> This repository contains ...
+> This repository contains all the tasks related to the "AirBnB Clone" project made by Holberton students.
+>
+> Throughout this project, we will learn how to create our own command interpreter, just like with the "Shell" project, but this time with a slight difference.
 
 </div>
 
