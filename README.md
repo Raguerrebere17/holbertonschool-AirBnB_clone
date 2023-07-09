@@ -28,11 +28,7 @@
 * [Authors](#authors)
 
 ## About
-The AirBnb Clone is a project that comprises multiple interconnected stages.
-You'll start by implementing The Console, which is a command interpreter designed to manage your AirBnB objects.
-
-This serves as the initial step towards creating a comprehensive web application: the AirBnB clone. The Console is of utmost importance as it will be utilized in conjunction with all the subsequent projects, including HTML/CSS templates, database storage, APIs, front-end integration, and more.
-
+This Airbnb Clone is a web application designed to replicate the core functionality and user experience of the popular accommodation rental platform, Airbnb. This project aims to provide a similar platform where users can browse, search, and book accommodations for their travel needs.
 ## Requirements
 ```
 python3
